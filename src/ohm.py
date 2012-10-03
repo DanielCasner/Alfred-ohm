@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Simple implementation of ohm's law"""
+import decimal
 
 def V(i, r):
     "V = I*R Volts"
@@ -41,31 +42,38 @@ if __name__ == '__main__':
         arg = arg.lower()
         if arg == 'v':
             try:
-                v = float(val)
-            except ValueError:
+                v = decimal.Decimal(val)
+            except decimal.InvalidOperation:
                 sys.stderr.write('Can\'t parse "%s" as a value for voltage.' % val)
                 sys.exit(1)
+            else:
+                sys.stdout.write('V=%s\t' % v.to_eng_string())
         elif arg == 'i':
             try:
-                i = float(val)
-            except ValueError:
+                i = decimal.Decimal(val)
+            except decimal.InvalidOperation:
                 sys.stderr.write('Can\'t parse "%s" as a value for current.' % val)
                 sys.exit(1)
+            else:
+                sys.stdout.write('I=%s\t' % i.to_eng_string())
         elif arg == 'r':
             try:
-                r = float(val)
-            except ValueError:
+                r = decimal.Decimal(val)
+            except decimal.InvalidOperation:
                 sys.stderr.write('Can\'t parse "%s" as a value for resistance.' % val)
                 sys.exit(1)
+            else:
+                sys.stdout.write('R=%s' % r.to_eng_string())
         else:
             sys.stderr.write('Unexpected argument: "%s=%s"' % (arg, val))
+    sys.stdout.write('\n==========\n\n')
     if v is not None and i is not None:
-        sys.stdout.write('R=%f\n' % R(i, v))
-        sys.stdout.write('W=%f\n' % W(v, i))
-        sys.stdout.write('P=%f\n' % P(i=i, v=v))
+        sys.stdout.write('R=%s\n' % R(i, v).to_eng_string())
+        sys.stdout.write('W=%s\n' % W(v, i).to_eng_string())
+        sys.stdout.write('P=%s\n' % P(i=i, v=v).to_eng_string())
     if v is not None and r is not None:
-        sys.stdout.write('I=%f\n' % I(v, r))
-        sys.stdout.write('P=%f\n' % P(v=v, r=r))
+        sys.stdout.write('I=%s\n' % I(v, r).to_eng_string())
+        sys.stdout.write('P=%s\n' % P(v=v, r=r).to_eng_string())
     if i is not None and r is not None:
-        sys.stdout.write('V=%f\n' % V(i, r))
-        sys.stdout.write('P=%f\n' % P(i=i, r=r))
+        sys.stdout.write('V=%s\n' % V(i, r).to_eng_string())
+        sys.stdout.write('P=%s\n' % P(i=i, r=r).to_eng_string())

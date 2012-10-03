@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <update>
-	<version>0.5</version>
+	<version>1.0</version>
 	<url>https://raw.github.com/DanielCasner/Alfred-ohm/master/Ohm.alfredextension</url>
-	<comment>Initial release</comment>
+	<comment>Added input to output</comment>
 </update>
